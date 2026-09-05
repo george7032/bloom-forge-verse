@@ -9,12 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SchoolLifeRouteImport } from './routes/school-life'
 import { Route as ProgramsRouteImport } from './routes/programs'
 import { Route as ParkRouteImport } from './routes/park'
+import { Route as FacilitiesRouteImport } from './routes/facilities'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BoardingRouteImport } from './routes/boarding'
+import { Route as AdmissionsRouteImport } from './routes/admissions'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AcademicsIndexRouteImport } from './routes/academics.index'
+import { Route as AcademicsSeniorRouteImport } from './routes/academics.senior'
+import { Route as AcademicsPrimaryRouteImport } from './routes/academics.primary'
+import { Route as AcademicsKindergartenRouteImport } from './routes/academics.kindergarten'
+import { Route as AcademicsJuniorRouteImport } from './routes/academics.junior'
 
+const SchoolLifeRoute = SchoolLifeRouteImport.update({
+  id: '/school-life',
+  path: '/school-life',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProgramsRoute = ProgramsRouteImport.update({
   id: '/programs',
   path: '/programs',
@@ -25,9 +39,24 @@ const ParkRoute = ParkRouteImport.update({
   path: '/park',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FacilitiesRoute = FacilitiesRouteImport.update({
+  id: '/facilities',
+  path: '/facilities',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoardingRoute = BoardingRouteImport.update({
+  id: '/boarding',
+  path: '/boarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsRoute = AdmissionsRouteImport.update({
+  id: '/admissions',
+  path: '/admissions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -40,47 +69,158 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcademicsIndexRoute = AcademicsIndexRouteImport.update({
+  id: '/academics/',
+  path: '/academics/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsSeniorRoute = AcademicsSeniorRouteImport.update({
+  id: '/academics/senior',
+  path: '/academics/senior',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsPrimaryRoute = AcademicsPrimaryRouteImport.update({
+  id: '/academics/primary',
+  path: '/academics/primary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsKindergartenRoute = AcademicsKindergartenRouteImport.update({
+  id: '/academics/kindergarten',
+  path: '/academics/kindergarten',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademicsJuniorRoute = AcademicsJuniorRouteImport.update({
+  id: '/academics/junior',
+  path: '/academics/junior',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/boarding': typeof BoardingRoute
   '/contact': typeof ContactRoute
+  '/facilities': typeof FacilitiesRoute
   '/park': typeof ParkRoute
   '/programs': typeof ProgramsRoute
+  '/school-life': typeof SchoolLifeRoute
+  '/academics/junior': typeof AcademicsJuniorRoute
+  '/academics/kindergarten': typeof AcademicsKindergartenRoute
+  '/academics/primary': typeof AcademicsPrimaryRoute
+  '/academics/senior': typeof AcademicsSeniorRoute
+  '/academics/': typeof AcademicsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/boarding': typeof BoardingRoute
   '/contact': typeof ContactRoute
+  '/facilities': typeof FacilitiesRoute
   '/park': typeof ParkRoute
   '/programs': typeof ProgramsRoute
+  '/school-life': typeof SchoolLifeRoute
+  '/academics/junior': typeof AcademicsJuniorRoute
+  '/academics/kindergarten': typeof AcademicsKindergartenRoute
+  '/academics/primary': typeof AcademicsPrimaryRoute
+  '/academics/senior': typeof AcademicsSeniorRoute
+  '/academics': typeof AcademicsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/boarding': typeof BoardingRoute
   '/contact': typeof ContactRoute
+  '/facilities': typeof FacilitiesRoute
   '/park': typeof ParkRoute
   '/programs': typeof ProgramsRoute
+  '/school-life': typeof SchoolLifeRoute
+  '/academics/junior': typeof AcademicsJuniorRoute
+  '/academics/kindergarten': typeof AcademicsKindergartenRoute
+  '/academics/primary': typeof AcademicsPrimaryRoute
+  '/academics/senior': typeof AcademicsSeniorRoute
+  '/academics/': typeof AcademicsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/park' | '/programs'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/boarding'
+    | '/contact'
+    | '/facilities'
+    | '/park'
+    | '/programs'
+    | '/school-life'
+    | '/academics/junior'
+    | '/academics/kindergarten'
+    | '/academics/primary'
+    | '/academics/senior'
+    | '/academics/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/park' | '/programs'
-  id: '__root__' | '/' | '/about' | '/contact' | '/park' | '/programs'
+  to:
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/boarding'
+    | '/contact'
+    | '/facilities'
+    | '/park'
+    | '/programs'
+    | '/school-life'
+    | '/academics/junior'
+    | '/academics/kindergarten'
+    | '/academics/primary'
+    | '/academics/senior'
+    | '/academics'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/boarding'
+    | '/contact'
+    | '/facilities'
+    | '/park'
+    | '/programs'
+    | '/school-life'
+    | '/academics/junior'
+    | '/academics/kindergarten'
+    | '/academics/primary'
+    | '/academics/senior'
+    | '/academics/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdmissionsRoute: typeof AdmissionsRoute
+  BoardingRoute: typeof BoardingRoute
   ContactRoute: typeof ContactRoute
+  FacilitiesRoute: typeof FacilitiesRoute
   ParkRoute: typeof ParkRoute
   ProgramsRoute: typeof ProgramsRoute
+  SchoolLifeRoute: typeof SchoolLifeRoute
+  AcademicsJuniorRoute: typeof AcademicsJuniorRoute
+  AcademicsKindergartenRoute: typeof AcademicsKindergartenRoute
+  AcademicsPrimaryRoute: typeof AcademicsPrimaryRoute
+  AcademicsSeniorRoute: typeof AcademicsSeniorRoute
+  AcademicsIndexRoute: typeof AcademicsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/school-life': {
+      id: '/school-life'
+      path: '/school-life'
+      fullPath: '/school-life'
+      preLoaderRoute: typeof SchoolLifeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/programs': {
       id: '/programs'
       path: '/programs'
@@ -95,11 +235,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ParkRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/facilities': {
+      id: '/facilities'
+      path: '/facilities'
+      fullPath: '/facilities'
+      preLoaderRoute: typeof FacilitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/boarding': {
+      id: '/boarding'
+      path: '/boarding'
+      fullPath: '/boarding'
+      preLoaderRoute: typeof BoardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions': {
+      id: '/admissions'
+      path: '/admissions'
+      fullPath: '/admissions'
+      preLoaderRoute: typeof AdmissionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -116,15 +277,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/academics/': {
+      id: '/academics/'
+      path: '/academics'
+      fullPath: '/academics/'
+      preLoaderRoute: typeof AcademicsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/senior': {
+      id: '/academics/senior'
+      path: '/academics/senior'
+      fullPath: '/academics/senior'
+      preLoaderRoute: typeof AcademicsSeniorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/primary': {
+      id: '/academics/primary'
+      path: '/academics/primary'
+      fullPath: '/academics/primary'
+      preLoaderRoute: typeof AcademicsPrimaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/kindergarten': {
+      id: '/academics/kindergarten'
+      path: '/academics/kindergarten'
+      fullPath: '/academics/kindergarten'
+      preLoaderRoute: typeof AcademicsKindergartenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academics/junior': {
+      id: '/academics/junior'
+      path: '/academics/junior'
+      fullPath: '/academics/junior'
+      preLoaderRoute: typeof AcademicsJuniorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdmissionsRoute: AdmissionsRoute,
+  BoardingRoute: BoardingRoute,
   ContactRoute: ContactRoute,
+  FacilitiesRoute: FacilitiesRoute,
   ParkRoute: ParkRoute,
   ProgramsRoute: ProgramsRoute,
+  SchoolLifeRoute: SchoolLifeRoute,
+  AcademicsJuniorRoute: AcademicsJuniorRoute,
+  AcademicsKindergartenRoute: AcademicsKindergartenRoute,
+  AcademicsPrimaryRoute: AcademicsPrimaryRoute,
+  AcademicsSeniorRoute: AcademicsSeniorRoute,
+  AcademicsIndexRoute: AcademicsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
