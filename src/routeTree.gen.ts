@@ -9,13 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SchoolLifeRouteImport } from './routes/school-life'
 import { Route as ProgramsRouteImport } from './routes/programs'
 import { Route as ParkRouteImport } from './routes/park'
+import { Route as FacilitiesRouteImport } from './routes/facilities'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BoardingRouteImport } from './routes/boarding'
 import { Route as AdmissionsRouteImport } from './routes/admissions'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SchoolLifeRoute = SchoolLifeRouteImport.update({
+  id: '/school-life',
+  path: '/school-life',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProgramsRoute = ProgramsRouteImport.update({
   id: '/programs',
   path: '/programs',
@@ -26,9 +34,19 @@ const ParkRoute = ParkRouteImport.update({
   path: '/park',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FacilitiesRoute = FacilitiesRouteImport.update({
+  id: '/facilities',
+  path: '/facilities',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoardingRoute = BoardingRouteImport.update({
+  id: '/boarding',
+  path: '/boarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdmissionsRoute = AdmissionsRouteImport.update({
@@ -51,53 +69,93 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admissions': typeof AdmissionsRoute
+  '/boarding': typeof BoardingRoute
   '/contact': typeof ContactRoute
+  '/facilities': typeof FacilitiesRoute
   '/park': typeof ParkRoute
   '/programs': typeof ProgramsRoute
+  '/school-life': typeof SchoolLifeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admissions': typeof AdmissionsRoute
+  '/boarding': typeof BoardingRoute
   '/contact': typeof ContactRoute
+  '/facilities': typeof FacilitiesRoute
   '/park': typeof ParkRoute
   '/programs': typeof ProgramsRoute
+  '/school-life': typeof SchoolLifeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admissions': typeof AdmissionsRoute
+  '/boarding': typeof BoardingRoute
   '/contact': typeof ContactRoute
+  '/facilities': typeof FacilitiesRoute
   '/park': typeof ParkRoute
   '/programs': typeof ProgramsRoute
+  '/school-life': typeof SchoolLifeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/admissions' | '/contact' | '/park' | '/programs'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/boarding'
+    | '/contact'
+    | '/facilities'
+    | '/park'
+    | '/programs'
+    | '/school-life'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/admissions' | '/contact' | '/park' | '/programs'
+  to:
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/boarding'
+    | '/contact'
+    | '/facilities'
+    | '/park'
+    | '/programs'
+    | '/school-life'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/admissions'
+    | '/boarding'
     | '/contact'
+    | '/facilities'
     | '/park'
     | '/programs'
+    | '/school-life'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdmissionsRoute: typeof AdmissionsRoute
+  BoardingRoute: typeof BoardingRoute
   ContactRoute: typeof ContactRoute
+  FacilitiesRoute: typeof FacilitiesRoute
   ParkRoute: typeof ParkRoute
   ProgramsRoute: typeof ProgramsRoute
+  SchoolLifeRoute: typeof SchoolLifeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/school-life': {
+      id: '/school-life'
+      path: '/school-life'
+      fullPath: '/school-life'
+      preLoaderRoute: typeof SchoolLifeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/programs': {
       id: '/programs'
       path: '/programs'
@@ -112,11 +170,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ParkRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/facilities': {
+      id: '/facilities'
+      path: '/facilities'
+      fullPath: '/facilities'
+      preLoaderRoute: typeof FacilitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/boarding': {
+      id: '/boarding'
+      path: '/boarding'
+      fullPath: '/boarding'
+      preLoaderRoute: typeof BoardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admissions': {
@@ -147,9 +219,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdmissionsRoute: AdmissionsRoute,
+  BoardingRoute: BoardingRoute,
   ContactRoute: ContactRoute,
+  FacilitiesRoute: FacilitiesRoute,
   ParkRoute: ParkRoute,
   ProgramsRoute: ProgramsRoute,
+  SchoolLifeRoute: SchoolLifeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
