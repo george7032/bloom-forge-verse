@@ -137,8 +137,8 @@ export default function Header() {
             aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
-            {isMenuOpen ? <Menu className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            {isMenuOpen && <X className="hidden" />}
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+
           </button>
         </div>
 
