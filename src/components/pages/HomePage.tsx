@@ -1,192 +1,429 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  BookOpen,
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  GraduationCap,
+  HeartHandshake,
+  Home as HomeIcon,
+  Quote,
+  ShieldCheck,
+  Sparkles,
+  Trophy,
+  Users,
+} from "lucide-react";
 import Layout from "@/components/Layout";
-import { ChevronLeft, ChevronRight, Star, Users, BookOpen, Trophy } from "lucide-react";
+import { Section, SectionHeading, Tbc } from "@/components/site/Section";
+import { CtaGroup, AdmissionsCta } from "@/components/site/CtaGroup";
+import ContactInfo from "@/components/site/ContactInfo";
+import {
+  academicLevels,
+  ACHIEVEMENT_TBC,
+  TESTIMONIAL_TBC,
+  TBC,
+} from "@/lib/school";
 import hero6 from "@/assets/hero-6.jpeg";
 import hero7 from "@/assets/hero-7.jpeg";
 import hero8 from "@/assets/hero-8.jpeg";
-import hero9 from "@/assets/hero-9.jpeg";
+import upper from "@/assets/upper.jpeg";
+import kindergartenImg from "@/assets/kindergarten.jpeg";
+import jss from "@/assets/jss.jpeg";
+import park1 from "@/assets/park1.jpeg";
 import hero10 from "@/assets/hero-10.jpeg";
 
 const heroImages = [
-  { src: hero6, title: "Beautiful Institution" },
-  { src: hero7, title: "Environment Friendly" },
-  { src: hero8, title: "Library" },
-  { src: hero9, title: "Amusement Park" },
-  { src: hero10, title: "Enjoyment" },
+  { src: upper, alt: "Learners in class at Embakasi Benedicta Academy" },
+  { src: hero6, alt: "The Embakasi Benedicta Academy campus in Utawala" },
+  { src: hero8, alt: "Learners reading in the school library" },
+  { src: hero7, alt: "The green learning environment at the Academy" },
 ];
 
-const testimonials = [
-  { name: "Geoffrey Otieno", role: "Parent", content: "My daughter loves coming to school every day! The combination of learning and play is perfect.", rating: 5 },
-  { name: "John Kariuki", role: "Parent", content: "The amusement park was a game-changer. My son has improved academically and socially.", rating: 5 },
-  { name: "Grace Njeri", role: "Parent", content: "Excellent teachers and facilities. The best decision we made for our child's education.", rating: 5 },
+const levelImages: Record<string, string> = {
+  kindergarten: kindergartenImg,
+  primary: upper,
+  junior: jss,
+  senior: hero6,
+};
+
+const reasons = [
+  { icon: BookOpen, t: "Strong academic programmes", d: "Well-structured teaching from Kindergarten to Senior School, with clear expectations at every stage." },
+  { icon: GraduationCap, t: "Committed teachers", d: "Teachers who know every learner by name and track progress closely throughout the term." },
+  { icon: HeartHandshake, t: "Individual learner support", d: "Difficulties are identified early and supported, so no learner is quietly left behind." },
+  { icon: Sparkles, t: "Character development", d: "Respect, responsibility and integrity are taught and expected every day." },
+  { icon: ShieldCheck, t: "A safe environment", d: "A secure campus, supervised learners and clear safeguarding practice." },
+  { icon: Users, t: "Co-curricular life", d: "Sport, clubs, music and the arts so that every learner finds their strength." },
 ];
 
-const stats = [
-  { icon: Users, number: "500+", label: "Happy Students" },
-  { icon: BookOpen, number: "20+", label: "Qualified Teachers" },
-  { icon: Trophy, number: "10+", label: "Awards Won" },
-  { icon: Star, number: "5", label: "Star Rating" },
-];
+const testimonials = [TESTIMONIAL_TBC, TESTIMONIAL_TBC, TESTIMONIAL_TBC];
 
 export default function HomePage() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slide, setSlide] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((p) => (p + 1) % heroImages.length);
-    }, 4000);
-    return () => clearInterval(interval);
+    const id = setInterval(() => setSlide((p) => (p + 1) % heroImages.length), 6000);
+    return () => clearInterval(id);
   }, []);
 
-  const next = () => setCurrentSlide((p) => (p + 1) % heroImages.length);
-  const prev = () => setCurrentSlide((p) => (p - 1 + heroImages.length) % heroImages.length);
+  const next = () => setSlide((p) => (p + 1) % heroImages.length);
+  const prev = () => setSlide((p) => (p - 1 + heroImages.length) % heroImages.length);
 
   return (
     <Layout>
-      <section className="relative h-screen overflow-hidden">
+      {/* Hero */}
+      <section className="relative isolate min-h-[70dvh] overflow-hidden bg-primary-dark text-white">
         <div className="absolute inset-0">
-          {heroImages.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-transform duration-1000 ease-in-out ${index === currentSlide ? "translate-x-0" : "translate-x-full"}`}
-              style={{ backgroundImage: `url(${image.src})`, backgroundSize: "cover", backgroundPosition: "center" }}
-            >
-              <div className="absolute inset-0 bg-black/40" />
-            </div>
+          {heroImages.map((image, i) => (
+            <img
+              key={image.src}
+              src={image.src}
+              alt={i === slide ? image.alt : ""}
+              aria-hidden={i === slide ? undefined : true}
+              loading={i === 0 ? "eager" : "lazy"}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+                i === slide ? "opacity-100" : "opacity-0"
+              }`}
+            />
           ))}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/75 to-primary-dark/40"
+          />
         </div>
 
-        <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-7xl font-bold mb-6 animate-fade-in">
-              A Nurturing Space for Young Minds! at
-              <br />
-              <span className="text-accent-yellow">Embakasi Benedicta Academy!</span>
+        <div className="container relative mx-auto flex min-h-[70dvh] items-center px-4 py-16">
+          <div className="max-w-3xl">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-accent-yellow">
+              Utawala, Nairobi
+            </p>
+            <h1 className="text-3xl font-bold leading-tight md:text-5xl lg:text-6xl">
+              Embakasi Benedicta Academy
+              <span className="mt-2 block text-xl font-semibold text-white/90 md:text-3xl">
+                A nurturing space for young minds
+              </span>
             </h1>
-            <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto text-white/90 animate-slide-up">
-              Experience the perfect blend of quality education and joyful learning with our unique kids amusement park —
-              the first of its kind in Embakasi!
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
+              Quality teaching, close learner support and strong character development — from
+              Kindergarten through Primary and Junior School to Senior School.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-bounce-in">
-              <Link to="/about" className="btn-primary">About Us</Link>
-              <Link to="/programs" className="btn-secondary">Our Programs</Link>
-              <Link to="/park" className="btn-yellow">Visit Amusement Park</Link>
-            </div>
+            <CtaGroup className="mt-8" />
           </div>
         </div>
 
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
-          {heroImages.map((_, index) => (
-            <button key={index} onClick={() => setCurrentSlide(index)} aria-label={`Slide ${index + 1}`} className={`w-3 h-3 rounded-full transition-all ${index === currentSlide ? "bg-white" : "bg-white/50"}`} />
+        <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+          {heroImages.map((image, i) => (
+            <button
+              key={image.src}
+              onClick={() => setSlide(i)}
+              aria-label={`Show photograph ${i + 1}`}
+              aria-current={i === slide}
+              className={`h-2.5 w-2.5 rounded-full transition-all ${i === slide ? "bg-white" : "bg-white/50"}`}
+            />
           ))}
         </div>
-
-        <button onClick={prev} aria-label="Previous slide" className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/20 backdrop-blur-sm p-3 rounded-full text-white hover:bg-white/30 transition-all">
-          <ChevronLeft className="h-6 w-6" />
+        <button
+          onClick={prev}
+          aria-label="Previous photograph"
+          className="absolute left-3 top-1/2 z-10 hidden min-h-11 min-w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/30 md:flex"
+        >
+          <ChevronLeft aria-hidden="true" className="h-6 w-6" />
         </button>
-        <button onClick={next} aria-label="Next slide" className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/20 backdrop-blur-sm p-3 rounded-full text-white hover:bg-white/30 transition-all">
-          <ChevronRight className="h-6 w-6" />
+        <button
+          onClick={next}
+          aria-label="Next photograph"
+          className="absolute right-3 top-1/2 z-10 hidden min-h-11 min-w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/30 md:flex"
+        >
+          <ChevronRight aria-hidden="true" className="h-6 w-6" />
         </button>
       </section>
 
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-foreground">Welcome to Excellence in Education</h2>
-            <p className="text-xl text-muted-foreground leading-relaxed mb-12">
-              At Embakasi Benedicta Academy, we believe that learning should be both meaningful and enjoyable.
-              Our innovative approach combines traditional academic excellence with the joy of play through
-              our state-of-the-art kids amusement park, creating an environment where children thrive
-              academically, socially, and emotionally.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div key={stat.label} className="text-center animate-bounce-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                    <stat.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <div className="text-3xl font-bold text-primary mb-2">{stat.number}</div>
-                  <div className="text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground">What Parents Say About Us</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, index) => (
-              <div key={t.name} className="testimonial-card hover-lift animate-slide-up" style={{ animationDelay: `${index * 0.2}s` }}>
-                <div className="flex items-center mb-4">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-accent-yellow fill-current" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground mb-6 italic">"{t.content}"</p>
-                <div>
-                  <div className="font-semibold text-foreground">{t.name}</div>
-                  <div className="text-sm text-muted-foreground">{t.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-primary text-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Amazing Amusement Park</h2>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              The first school in Embakasi with its own kids amusement park! Where learning meets fun every day.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover-lift">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4"><Star className="h-8 w-8 text-white" /></div>
-              <h3 className="text-xl font-bold mb-3">Bouncing Castles</h3>
-              <p className="text-white/90">Multiple colorful bouncing castles for endless fun and physical activity.</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover-lift">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4"><Trophy className="h-8 w-8 text-white" /></div>
-              <h3 className="text-xl font-bold mb-3">Adventure Slides</h3>
-              <p className="text-white/90">Safe and exciting slides that provide thrill while building confidence.</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover-lift">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4"><Users className="h-8 w-8 text-white" /></div>
-              <h3 className="text-xl font-bold mb-3">Birthday Parties</h3>
-              <p className="text-white/90">Host unforgettable birthday celebrations in our dedicated party areas.</p>
-            </div>
-          </div>
-          <div className="text-center mt-12">
-            <Link to="/park" className="bg-white text-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all hover:scale-105 inline-block">
-              Explore Our Amusement Park
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gradient-primary text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-8">Ready to Join Our Academy Family?</h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Give your child the gift of quality education combined with joyful learning experiences.
-            Schedule a visit today and see the difference for yourself!
+      {/* Introduction */}
+      <Section>
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-2xl font-bold text-foreground md:text-4xl">
+            An education built on care and high expectations
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground md:text-lg">
+            Embakasi Benedicta Academy is a school in Utawala, next to Kimson Plaza, where learners
+            are known individually and taught well. We combine a structured academic programme with
+            close pastoral care, so that children grow in knowledge, confidence and character.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact" className="bg-white text-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all hover:scale-105 inline-block">
-              Contact Us Today
+          <div className="mt-6 flex flex-wrap justify-center gap-2 text-sm text-muted-foreground">
+            <span>Year established: </span>
+            <Tbc>{TBC}</Tbc>
+            <span className="ml-3">Curriculum: </span>
+            <Tbc>{TBC}</Tbc>
+          </div>
+          <Link
+            to="/about"
+            className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+          >
+            About the Academy
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </Link>
+        </div>
+      </Section>
+
+      {/* Academic levels */}
+      <Section muted>
+        <SectionHeading
+          eyebrow="Academics"
+          title="Kindergarten, Primary, Junior and Senior School"
+          description="A continuous learning journey, with teaching matched to each stage of a child's development."
+        />
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {academicLevels.map((level) => (
+            <article key={level.slug} className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src={levelImages[level.slug]}
+                  alt={`${level.name} at Embakasi Benedicta Academy`}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="text-lg font-bold text-foreground">{level.name}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{level.summary}</p>
+                <p className="mt-3 text-xs font-medium uppercase tracking-wide text-primary">
+                  {level.focus}
+                </p>
+                <Link
+                  to={level.to}
+                  className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary underline-offset-4 hover:underline"
+                >
+                  Learn more
+                  <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      {/* Why choose */}
+      <Section>
+        <SectionHeading
+          eyebrow="Why us"
+          title="Why choose Embakasi Benedicta Academy?"
+          description="What parents can expect from us, every term."
+        />
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {reasons.map((r) => (
+            <div key={r.t} className="rounded-xl border border-border bg-card p-6">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                <r.icon aria-hidden="true" className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground">{r.t}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{r.d}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Day and boarding */}
+      <Section muted>
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <SectionHeading
+              align="left"
+              eyebrow="Day and boarding"
+              title="Two ways to join the Academy"
+              description="Families can choose day attendance or boarding, subject to availability confirmed by the Academy."
+            />
+            <div className="space-y-4">
+              <div className="rounded-xl border border-border bg-card p-5">
+                <h3 className="flex items-center gap-2 font-semibold text-foreground">
+                  <HomeIcon aria-hidden="true" className="h-5 w-5 text-primary" />
+                  Day learners
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  A full school day of structured lessons, activities and supervised play, with
+                  learners returning home each evening.
+                </p>
+              </div>
+              <div className="rounded-xl border border-border bg-card p-5">
+                <h3 className="flex items-center gap-2 font-semibold text-foreground">
+                  <ShieldCheck aria-hidden="true" className="h-5 w-5 text-primary" />
+                  Boarders
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Supervised routines, structured evening study and pastoral care. Boarding details
+                  are confirmed by the Academy: <Tbc>{TBC}</Tbc>
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/boarding"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-dark"
+            >
+              About boarding
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </Link>
-            <Link to="/park" className="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all inline-block">
-              Visit Amusement Park
+          </div>
+          <div className="overflow-hidden rounded-2xl">
+            <img
+              src={hero6}
+              alt="The Embakasi Benedicta Academy campus"
+              loading="lazy"
+              className="aspect-[4/3] w-full object-cover"
+            />
+          </div>
+        </div>
+      </Section>
+
+      {/* Facilities */}
+      <Section>
+        <SectionHeading
+          eyebrow="Facilities"
+          title="A learning environment that supports every child"
+          description="Classrooms, a library, green outdoor spaces and a distinctive on-site kids amusement park."
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            { img: upper, t: "Classrooms", alt: "A classroom at the Academy" },
+            { img: hero8, t: "Library", alt: "The school library" },
+            { img: hero7, t: "Outdoor spaces", alt: "Green outdoor space on the campus" },
+          ].map((f) => (
+            <figure key={f.t} className="overflow-hidden rounded-2xl border border-border bg-card">
+              <img src={f.img} alt={f.alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+              <figcaption className="p-4 text-center font-semibold text-foreground">{f.t}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <div className="mt-8 text-center">
+          <Link
+            to="/facilities"
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+          >
+            See all facilities
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </Link>
+        </div>
+      </Section>
+
+      {/* School life */}
+      <Section muted>
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div className="overflow-hidden rounded-2xl">
+            <img
+              src={hero10}
+              alt="Learners taking part in activities at the Academy"
+              loading="lazy"
+              className="aspect-[4/3] w-full object-cover"
+            />
+          </div>
+          <div>
+            <SectionHeading
+              align="left"
+              eyebrow="School life"
+              title="Sport, clubs, music and leadership"
+              description="Learning continues beyond the classroom. Our co-curricular programme helps learners discover talents, build friendships and grow in confidence — including supervised play in our kids amusement park."
+            />
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/school-life"
+                className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-dark"
+              >
+                Explore school life
+              </Link>
+              <Link
+                to="/park"
+                className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+              >
+                <img src={park1} alt="" aria-hidden="true" className="h-6 w-6 rounded object-cover" />
+                Kids amusement park
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Achievements */}
+      <Section>
+        <SectionHeading
+          eyebrow="Achievements"
+          title="Our achievements"
+          description="We publish only achievements the Academy has verified."
+        />
+        <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-3">
+          {[Trophy, Trophy, Trophy].map((Icon, i) => (
+            <div key={i} className="rounded-xl border border-dashed border-border bg-card p-6 text-center">
+              <Icon aria-hidden="true" className="mx-auto mb-3 h-8 w-8 text-primary" />
+              <p className="text-sm text-muted-foreground">{ACHIEVEMENT_TBC}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* News and events */}
+      <Section muted>
+        <SectionHeading
+          eyebrow="Community"
+          title="Latest news and upcoming events"
+          description="Current announcements and events from the Academy."
+        />
+        <div className="mx-auto max-w-3xl rounded-xl border border-dashed border-border bg-card p-8 text-center">
+          <CalendarDays aria-hidden="true" className="mx-auto mb-4 h-10 w-10 text-primary" />
+          <p className="text-muted-foreground">
+            No current news or upcoming events have been published yet.
+          </p>
+          <Link
+            to="/news"
+            className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+          >
+            News and events
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </Link>
+        </div>
+      </Section>
+
+      {/* Testimonials */}
+      <Section>
+        <SectionHeading
+          eyebrow="Our parents"
+          title="What parents say"
+          description="Only genuine testimonials approved by the families who gave them are published here."
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {testimonials.map((t, i) => (
+            <blockquote key={i} className="rounded-xl border border-dashed border-border bg-card p-6">
+              <Quote aria-hidden="true" className="mb-3 h-6 w-6 text-primary" />
+              <p className="text-sm text-muted-foreground">{t}</p>
+            </blockquote>
+          ))}
+        </div>
+      </Section>
+
+      <AdmissionsCta
+        title="Enrol your child at Embakasi Benedicta Academy"
+        description="Send an enquiry, book a school visit or begin your application today."
+      />
+
+      {/* Contact */}
+      <Section>
+        <div className="grid gap-10 lg:grid-cols-2">
+          <div>
+            <SectionHeading align="left" eyebrow="Contact" title="Visit or contact the Academy" />
+            <ContactInfo />
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-6">
+            <h3 className="text-lg font-bold text-foreground">Find us</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Embakasi Benedicta Academy, Utawala, next to Kimson Plaza, Nairobi.
+            </p>
+            <Link
+              to="/contact"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-dark"
+            >
+              Contact page and directions
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </Link>
           </div>
         </div>
-      </section>
+      </Section>
     </Layout>
   );
 }
