@@ -1,98 +1,204 @@
 import { useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X, Facebook, Youtube, Phone, Mail } from "lucide-react";
+import { ChevronDown, Mail, Menu, MessageCircle, Phone, X } from "lucide-react";
 import logoImage from "@/assets/logo.png";
+import { academicLevels, school, whatsappLink } from "@/lib/school";
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
-  { name: "Programs", href: "/programs" },
-  { name: "Amusement Park", href: "/park" },
-  { name: "Contact", href: "/contact" },
-] as const;
-
-const socialLinks = [
-  { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/profile.php?id=100094652748920" },
-  { name: "TikTok", icon: Youtube, href: "https://www.tiktok.com/@embakasi.benedict" },
-  { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/@benedictaschool" },
+  { name: "Home", href: "/" as const },
+  { name: "About Us", href: "/about" as const },
+  { name: "Academics", href: "/academics" as const, children: academicLevels },
+  { name: "Admissions", href: "/admissions" as const },
+  { name: "Boarding", href: "/boarding" as const },
+  { name: "School Life", href: "/school-life" as const },
+  { name: "News & Events", href: "/news" as const },
+  { name: "Parent Information", href: "/parent-information" as const },
+  { name: "Contact Us", href: "/contact" as const },
 ];
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [academicsOpen, setAcademicsOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) =>
+    path === "/" ? pathname === "/" : pathname.startsWith(path);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-border shadow-soft">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/95 shadow-soft backdrop-blur-md">
       <div className="container mx-auto px-4">
-        <div className="hidden md:flex justify-between items-center py-2 border-b border-gray-200">
-          <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-2 text-muted-foreground">
-              <Phone className="h-4 w-4" />
-              <span className="text-sm">+254 110 380 560</span>
-            </div>
-            <div className="flex items-center space-x-2 text-muted-foreground">
-              <Mail className="h-4 w-4" />
-              <span className="text-sm">marketingebenedictaacademy@gmail.com</span>
-            </div>
+        <div className="hidden items-center justify-between gap-4 border-b border-border py-2 md:flex">
+          <div className="flex items-center gap-6">
+            <a
+              href={school.phoneHref}
+              className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+            >
+              <Phone aria-hidden="true" className="h-4 w-4" />
+              {school.phone}
+            </a>
+            <a
+              href={`mailto:${school.email}`}
+              className="hidden items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary lg:flex"
+            >
+              <Mail aria-hidden="true" className="h-4 w-4" />
+              {school.email}
+            </a>
           </div>
-          <div className="flex items-center space-x-4">
-            {socialLinks.map((s) => (
-              <a key={s.name} href={s.href} className="text-muted-foreground hover:text-primary transition-colors" aria-label={s.name}>
-                <s.icon className="h-4 w-4" />
-              </a>
-            ))}
-          </div>
+          <a
+            href={whatsappLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+          >
+            <MessageCircle aria-hidden="true" className="h-4 w-4" />
+            WhatsApp Us
+          </a>
         </div>
 
-        <div className="flex items-center justify-between py-4">
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden">
-              <img src={logoImage} alt="Embakasi Benedicta Academy logo" className="w-full h-full object-contain" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-foreground">Embakasi Benedicta Academy</h1>
-              <p className="text-sm text-muted-foreground">A Nurturing Space for Young Minds!</p>
-            </div>
+        <div className="flex items-center justify-between gap-4 py-3">
+          <Link to="/" className="flex items-center gap-3">
+            <img
+              src={logoImage}
+              alt="Embakasi Benedicta Academy logo"
+              className="h-12 w-12 object-contain"
+            />
+            <span>
+              <span className="block text-base font-bold leading-tight text-foreground md:text-lg">
+                Embakasi Benedicta Academy
+              </span>
+              <span className="block text-xs text-muted-foreground md:text-sm">
+                {school.tagline}
+              </span>
+            </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <Link key={item.name} to={item.href} className={`nav-link ${isActive(item.href) ? "text-primary" : ""}`}>
-                {item.name}
-              </Link>
-            ))}
+          <nav aria-label="Main" className="hidden items-center gap-1 xl:flex">
+            {navigation.map((item) =>
+              item.children ? (
+                <div
+                  key={item.name}
+                  className="relative"
+                  onMouseEnter={() => setAcademicsOpen(true)}
+                  onMouseLeave={() => setAcademicsOpen(false)}
+                >
+                  <Link
+                    to={item.href}
+                    onFocus={() => setAcademicsOpen(true)}
+                    aria-expanded={academicsOpen}
+                    className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted ${
+                      isActive(item.href) ? "text-primary" : "text-foreground"
+                    }`}
+                  >
+                    {item.name}
+                    <ChevronDown aria-hidden="true" className="h-4 w-4" />
+                  </Link>
+                  {academicsOpen && (
+                    <ul className="absolute left-0 top-full z-50 w-56 rounded-lg border border-border bg-popover p-2 shadow-hover">
+                      {item.children.map((child) => (
+                        <li key={child.slug}>
+                          <Link
+                            to={child.to}
+                            className="block rounded-md px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+                            onClick={() => setAcademicsOpen(false)}
+                          >
+                            {child.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted ${
+                    isActive(item.href) ? "text-primary" : "text-foreground"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ),
+            )}
           </nav>
+
+          <div className="hidden xl:block">
+            <Link
+              to="/admissions"
+              hash="enquiry"
+              className="inline-flex min-h-11 items-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-dark"
+            >
+              Enquire Now
+            </Link>
+          </div>
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-foreground hover:bg-muted transition-colors"
-            aria-label="Toggle menu"
+            className="min-h-11 min-w-11 rounded-lg p-2 text-foreground transition-colors hover:bg-muted xl:hidden"
+            aria-expanded={isMenuOpen}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? <Menu className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen && <X className="hidden" />}
           </button>
         </div>
 
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border animate-fade-in">
-            <nav className="flex flex-col space-y-4">
+          <div className="border-t border-border py-4 xl:hidden">
+            <nav aria-label="Mobile" className="flex flex-col">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`nav-link block py-2 ${isActive(item.href) ? "text-primary" : ""}`}
-                >
-                  {item.name}
-                </Link>
+                <div key={item.name}>
+                  <Link
+                    to={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`block rounded-md px-2 py-3 text-base font-medium transition-colors hover:bg-muted ${
+                      isActive(item.href) ? "text-primary" : "text-foreground"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                  {item.children && (
+                    <ul className="ml-4 border-l border-border pl-3">
+                      {item.children.map((child) => (
+                        <li key={child.slug}>
+                          <Link
+                            to={child.to}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="block rounded-md px-2 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                          >
+                            {child.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               ))}
             </nav>
-            <div className="flex items-center justify-center space-x-6 mt-6 pt-4 border-t border-border">
-              {socialLinks.map((s) => (
-                <a key={s.name} href={s.href} className="text-muted-foreground hover:text-primary transition-colors" aria-label={s.name}>
-                  <s.icon className="h-5 w-5" />
-                </a>
-              ))}
+            <div className="mt-4 flex flex-col gap-3 border-t border-border pt-4">
+              <Link
+                to="/admissions"
+                hash="enquiry"
+                onClick={() => setIsMenuOpen(false)}
+                className="inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
+              >
+                Enquire Now
+              </Link>
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-foreground"
+              >
+                <MessageCircle aria-hidden="true" className="h-4 w-4" />
+                WhatsApp Us
+              </a>
+              <a
+                href={school.phoneHref}
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-foreground"
+              >
+                <Phone aria-hidden="true" className="h-4 w-4" />
+                Call Us
+              </a>
             </div>
           </div>
         )}
