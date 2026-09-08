@@ -13,7 +13,7 @@ export const LEGAL_TBC = "[MANAGEMENT/LEGAL REVIEW REQUIRED]";
 export const school = {
   name: "Embakasi Benedicta Academy",
   shortName: "Benedicta Academy",
-  tagline: "A Nurturing Space for Young Minds",
+  tagline: "A nurturing space for young minds",
   /** Verified location as supplied by the Academy. */
   address: "Utawala, next to Kimson Plaza, Nairobi, Kenya",
   postalAddress: TBC,
