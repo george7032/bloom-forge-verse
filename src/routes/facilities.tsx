@@ -92,7 +92,7 @@ function FacilitiesPage() {
 
       <Section>
         <SectionHeading
-          title="Facilities on our campus"
+          title="Facilities on our Institution"
           description="Every facility below is part of daily learning at the Academy."
         />
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
