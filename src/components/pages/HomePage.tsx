@@ -73,7 +73,7 @@ export default function HomePage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative isolate min-h-[70dvh] overflow-hidden bg-primary-dark text-white">
+      <section className="relative isolate min-h-[560px] md:min-h-[640px] overflow-hidden bg-primary-dark text-white">
         <div className="absolute inset-0">
           {heroImages.map((image, i) => (
             <img
@@ -93,7 +93,7 @@ export default function HomePage() {
           />
         </div>
 
-        <div className="container relative mx-auto flex min-h-[70dvh] items-center px-4 py-16">
+        <div className="container relative mx-auto flex min-h-[560px] md:min-h-[640px] items-center px-4 py-16">
           <div className="max-w-3xl">
             <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-accent-yellow">
               Utawala, Nairobi
