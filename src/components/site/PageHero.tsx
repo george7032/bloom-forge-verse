@@ -33,7 +33,7 @@ export default function PageHero({
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/75 to-primary-dark/50"
+            className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/65 to-black/35"
           />
         </>
       )}

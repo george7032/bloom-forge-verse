@@ -71,7 +71,7 @@ export default function Header() {
             </span>
           </Link>
 
-          <nav aria-label="Main" className="hidden items-center gap-1 xl:flex">
+          <nav aria-label="Main" className="hidden items-center xl:flex">
             {navigation.map((item) =>
               item.children ? (
                 <div
@@ -84,7 +84,7 @@ export default function Header() {
                     to={item.href}
                     onFocus={() => setAcademicsOpen(true)}
                     aria-expanded={academicsOpen}
-                    className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted ${
+                    className={`flex items-center gap-1 whitespace-nowrap rounded-md px-2.5 py-2 text-[13px] font-medium transition-colors hover:bg-muted ${
                       isActive(item.href) ? "text-primary" : "text-foreground"
                     }`}
                   >
@@ -111,7 +111,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted ${
+                  className={`whitespace-nowrap rounded-md px-2.5 py-2 text-[13px] font-medium transition-colors hover:bg-muted ${
                     isActive(item.href) ? "text-primary" : "text-foreground"
                   }`}
                 >
