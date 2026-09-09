@@ -12,7 +12,7 @@ const navigation = [
   { name: "Boarding", href: "/boarding" as const },
   { name: "School Life", href: "/school-life" as const },
   { name: "News & Events", href: "/news" as const },
-  { name: "Parent Information", href: "/parent-information" as const },
+  { name: "Gallery", href: "/gallery" as const },
   { name: "Contact Us", href: "/contact" as const },
 ];
 
