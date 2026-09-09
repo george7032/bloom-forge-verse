@@ -6,6 +6,41 @@ import { AdmissionsCta } from "@/components/site/CtaGroup";
 import { SITE_URL } from "@/lib/school";
 import heroImage from "@/assets/hero-10.jpeg";
 import parkImage from "@/assets/park2.jpeg";
+import karate from "@/assets/karate.jpg";
+import chess from "@/assets/chess.jpg";
+import taekwondo from "@/assets/taekwondo.jpg";
+import swimming from "@/assets/swimming.jpg";
+import skating from "@/assets/skating.jpg";
+import urbanDance from "@/assets/urban-dance.jpg";
+import musicImg from "@/assets/music.jpg";
+import frenchImg from "@/assets/french.jpg";
+import germanImg from "@/assets/german.jpg";
+
+const activityImages = [
+  { img: karate, t: "Karate", alt: "Learners practising karate in the school hall" },
+  { img: taekwondo, t: "Taekwondo", alt: "Learners practising taekwondo kicks" },
+  { img: chess, t: "Chess", alt: "Learners playing chess in the chess club" },
+  { img: swimming, t: "Swimming", alt: "Learners in a swimming lesson" },
+  { img: skating, t: "Skating", alt: "Learners skating with helmets and protective pads" },
+  { img: urbanDance, t: "Urban dance", alt: "Learners in an urban dance session" },
+  { img: musicImg, t: "Music", alt: "Learners playing instruments in a music lesson" },
+  { img: parkImage, t: "Supervised play", alt: "Children playing in the kids amusement park" },
+];
+
+const languages = [
+  {
+    img: frenchImg,
+    t: "French",
+    alt: "A French language lesson in progress",
+    d: "Learners build everyday French through greetings, vocabulary, simple conversation, reading and writing.",
+  },
+  {
+    img: germanImg,
+    t: "German",
+    alt: "A German language lesson in progress",
+    d: "Learners are introduced to German with spoken practice, vocabulary and written work suited to their level.",
+  },
+];
 
 const title = "School Life — Embakasi Benedicta Academy, Utawala";
 const description =
