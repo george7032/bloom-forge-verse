@@ -16,6 +16,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ParkRouteImport } from './routes/park'
 import { Route as ParentInformationRouteImport } from './routes/parent-information'
 import { Route as NewsRouteImport } from './routes/news'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FacilitiesRouteImport } from './routes/facilities'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ChildSafeguardingRouteImport } from './routes/child-safeguarding'
@@ -62,6 +63,11 @@ const ParentInformationRoute = ParentInformationRouteImport.update({
 const NewsRoute = NewsRouteImport.update({
   id: '/news',
   path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FacilitiesRoute = FacilitiesRouteImport.update({
@@ -133,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/child-safeguarding': typeof ChildSafeguardingRoute
   '/contact': typeof ContactRoute
   '/facilities': typeof FacilitiesRoute
+  '/gallery': typeof GalleryRoute
   '/news': typeof NewsRoute
   '/parent-information': typeof ParentInformationRoute
   '/park': typeof ParkRoute
@@ -154,6 +161,7 @@ export interface FileRoutesByTo {
   '/child-safeguarding': typeof ChildSafeguardingRoute
   '/contact': typeof ContactRoute
   '/facilities': typeof FacilitiesRoute
+  '/gallery': typeof GalleryRoute
   '/news': typeof NewsRoute
   '/parent-information': typeof ParentInformationRoute
   '/park': typeof ParkRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/child-safeguarding': typeof ChildSafeguardingRoute
   '/contact': typeof ContactRoute
   '/facilities': typeof FacilitiesRoute
+  '/gallery': typeof GalleryRoute
   '/news': typeof NewsRoute
   '/parent-information': typeof ParentInformationRoute
   '/park': typeof ParkRoute
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/child-safeguarding'
     | '/contact'
     | '/facilities'
+    | '/gallery'
     | '/news'
     | '/parent-information'
     | '/park'
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/child-safeguarding'
     | '/contact'
     | '/facilities'
+    | '/gallery'
     | '/news'
     | '/parent-information'
     | '/park'
@@ -241,6 +252,7 @@ export interface FileRouteTypes {
     | '/child-safeguarding'
     | '/contact'
     | '/facilities'
+    | '/gallery'
     | '/news'
     | '/parent-information'
     | '/park'
@@ -263,6 +275,7 @@ export interface RootRouteChildren {
   ChildSafeguardingRoute: typeof ChildSafeguardingRoute
   ContactRoute: typeof ContactRoute
   FacilitiesRoute: typeof FacilitiesRoute
+  GalleryRoute: typeof GalleryRoute
   NewsRoute: typeof NewsRoute
   ParentInformationRoute: typeof ParentInformationRoute
   ParkRoute: typeof ParkRoute
@@ -326,6 +339,13 @@ declare module '@tanstack/react-router' {
       path: '/news'
       fullPath: '/news'
       preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/facilities': {
@@ -423,6 +443,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChildSafeguardingRoute: ChildSafeguardingRoute,
   ContactRoute: ContactRoute,
   FacilitiesRoute: FacilitiesRoute,
+  GalleryRoute: GalleryRoute,
   NewsRoute: NewsRoute,
   ParentInformationRoute: ParentInformationRoute,
   ParkRoute: ParkRoute,
