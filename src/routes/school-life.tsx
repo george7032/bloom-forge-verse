@@ -6,6 +6,41 @@ import { AdmissionsCta } from "@/components/site/CtaGroup";
 import { SITE_URL } from "@/lib/school";
 import heroImage from "@/assets/hero-10.jpeg";
 import parkImage from "@/assets/park2.jpeg";
+import karate from "@/assets/karate.jpg";
+import chess from "@/assets/chess.jpg";
+import taekwondo from "@/assets/taekwondo.jpg";
+import swimming from "@/assets/swimming.jpg";
+import skating from "@/assets/skating.jpg";
+import urbanDance from "@/assets/urban-dance.jpg";
+import musicImg from "@/assets/music.jpg";
+import frenchImg from "@/assets/french.jpg";
+import germanImg from "@/assets/german.jpg";
+
+const activityImages = [
+  { img: karate, t: "Karate", alt: "Learners practising karate in the school hall" },
+  { img: taekwondo, t: "Taekwondo", alt: "Learners practising taekwondo kicks" },
+  { img: chess, t: "Chess", alt: "Learners playing chess in the chess club" },
+  { img: swimming, t: "Swimming", alt: "Learners in a swimming lesson" },
+  { img: skating, t: "Skating", alt: "Learners skating with helmets and protective pads" },
+  { img: urbanDance, t: "Urban dance", alt: "Learners in an urban dance session" },
+  { img: musicImg, t: "Music", alt: "Learners playing instruments in a music lesson" },
+  { img: parkImage, t: "Supervised play", alt: "Children playing in the kids amusement park" },
+];
+
+const languages = [
+  {
+    img: frenchImg,
+    t: "French",
+    alt: "A French language lesson in progress",
+    d: "Learners build everyday French through greetings, vocabulary, simple conversation, reading and writing.",
+  },
+  {
+    img: germanImg,
+    t: "German",
+    alt: "A German language lesson in progress",
+    d: "Learners are introduced to German with spoken practice, vocabulary and written work suited to their level.",
+  },
+];
 
 const title = "School Life — Embakasi Benedicta Academy, Utawala";
 const description =
@@ -63,6 +98,40 @@ function SchoolLifePage() {
             <div key={a.t} className="rounded-xl border border-border bg-card p-6">
               <h3 className="text-lg font-semibold text-foreground">{a.t}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{a.d}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section muted ariaLabel="Clubs and activities in pictures">
+        <SectionHeading
+          title="Clubs and activities in pictures"
+          description="Martial arts, sport, games and performance run alongside the academic timetable."
+        />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {activityImages.map((a) => (
+            <figure key={a.t} className="overflow-hidden rounded-2xl border border-border bg-card">
+              <img src={a.img} alt={a.alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+              <figcaption className="p-4 text-center text-sm font-semibold text-foreground">{a.t}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeading
+          eyebrow="Foreign languages"
+          title="French and German"
+          description="Learners are introduced to French and German, building confidence in listening, speaking, reading and writing another language."
+        />
+        <div className="grid gap-6 md:grid-cols-2">
+          {languages.map((l) => (
+            <div key={l.t} className="overflow-hidden rounded-2xl border border-border bg-card">
+              <img src={l.img} alt={l.alt} loading="lazy" className="aspect-[16/9] w-full object-cover" />
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-foreground">{l.t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
+              </div>
             </div>
           ))}
         </div>

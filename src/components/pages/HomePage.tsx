@@ -33,6 +33,9 @@ import kindergartenImg from "@/assets/kindergarten.jpeg";
 import jss from "@/assets/jss.jpeg";
 import park1 from "@/assets/park1.jpeg";
 import hero10 from "@/assets/hero-10.jpeg";
+import computerLab from "@/assets/computer-lab.jpg";
+import scienceLab from "@/assets/science-lab.jpg";
+import diningHall from "@/assets/dining-hall.jpg";
 
 const heroImages = [
   { src: upper, alt: "Learners in class at Embakasi Benedicta Academy" },
@@ -279,12 +282,15 @@ export default function HomePage() {
         <SectionHeading
           eyebrow="Facilities"
           title="A learning environment that supports every child"
-          description="Classrooms, a library, green outdoor spaces and a distinctive on-site kids amusement park."
+          description="Classrooms, a library, computer and science laboratories, a dining facility, green outdoor spaces and a distinctive on-site kids amusement park."
         />
         <div className="grid gap-6 md:grid-cols-3">
           {[
             { img: upper, t: "Classrooms", alt: "A classroom at the Academy" },
             { img: hero8, t: "Library", alt: "The school library" },
+            { img: computerLab, t: "Computer laboratory", alt: "Learners working in the computer laboratory" },
+            { img: scienceLab, t: "Science laboratory", alt: "Learners carrying out an experiment in the science laboratory" },
+            { img: diningHall, t: "Dining facility", alt: "Learners having a meal in the school dining hall" },
             { img: hero7, t: "Outdoor spaces", alt: "Green outdoor space on the campus" },
           ].map((f) => (
             <figure key={f.t} className="overflow-hidden rounded-2xl border border-border bg-card">

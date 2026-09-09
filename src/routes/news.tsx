@@ -1,15 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, FileText, Lock } from "lucide-react";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/site/PageHero";
 import { Section, SectionHeading, Tbc } from "@/components/site/Section";
+import Faq from "@/components/site/Faq";
 import { AdmissionsCta } from "@/components/site/CtaGroup";
 import { SITE_URL, TBC } from "@/lib/school";
 import heroImage from "@/assets/hero-9.jpeg";
 
-const title = "News & Events — Embakasi Benedicta Academy, Utawala";
+const title = "News, Events & Parent Information — Embakasi Benedicta Academy";
 const description =
-  "School news, announcements, term updates, achievements and upcoming events at Embakasi Benedicta Academy in Utawala.";
+  "School news, announcements, upcoming events and parent information — term dates, uniform, transport, notices and policies at Embakasi Benedicta Academy, Utawala.";
 
 export const Route = createFileRoute("/news")({
   head: () => ({
@@ -36,6 +37,39 @@ const categories = [
   "Events",
   "Educational Articles",
   "Photo Galleries",
+];
+
+const parentSections = [
+  { t: "School calendar", d: "Key dates for the academic year, including holidays and school events." },
+  { t: "Term dates", d: "Opening and closing dates for each term." },
+  { t: "Uniform information", d: "Uniform requirements, suppliers and expectations." },
+  { t: "Transport information", d: "Transport arrangements, routes and pick-up points." },
+  { t: "Parent notices", d: "Current notices and communications from the Academy." },
+  { t: "Newsletters", d: "Termly newsletters covering school life and achievements." },
+  { t: "School policies", d: "Policies covering behaviour, attendance, safeguarding and more." },
+];
+
+const parentFaqs = [
+  {
+    question: "How does the Academy communicate with parents?",
+    answer:
+      "Through notices, newsletters, parent meetings and direct contact from the school office. Parents may also call, email or message the Academy at any time.",
+  },
+  {
+    question: "Where can I find term dates?",
+    answer:
+      "Term dates are published on this page as soon as they are confirmed by the Academy for the current academic year.",
+  },
+  {
+    question: "Who do I contact about my child's progress?",
+    answer:
+      "Start with your child's class teacher through the school office, who will arrange a meeting or a call.",
+  },
+  {
+    question: "How do I report an absence?",
+    answer:
+      "Please inform the school office by telephone or WhatsApp as early as possible on the day of absence.",
+  },
 ];
 
 function NewsPage() {
@@ -95,6 +129,57 @@ function NewsPage() {
             <Tbc>{TBC}</Tbc>
           </p>
         </div>
+      </Section>
+
+      <Section muted ariaLabel="Parent information">
+        <SectionHeading
+          eyebrow="For Parents"
+          title="Parent information"
+          description="Dates, notices, uniform and transport details and school policies, published as soon as the Academy confirms them."
+        />
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {parentSections.map((s) => (
+            <div key={s.t} className="rounded-xl border border-border bg-card p-6">
+              <h3 className="text-lg font-semibold text-foreground">{s.t}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
+              <p className="mt-4">
+                <Tbc>{TBC}</Tbc>
+              </p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeading
+          title="Downloadable documents"
+          description="Forms, calendars and policy documents will be listed here with a title, category, date, description and download button."
+        />
+        <div className="mx-auto max-w-3xl rounded-xl border border-dashed border-border bg-card p-8 text-center">
+          <FileText aria-hidden="true" className="mx-auto mb-4 h-10 w-10 text-primary" />
+          <p className="text-base text-muted-foreground">No documents have been published yet.</p>
+          <p className="mt-4">
+            <Tbc>{TBC}</Tbc>
+          </p>
+        </div>
+      </Section>
+
+      <Section muted>
+        <div className="mx-auto max-w-3xl rounded-xl border border-border bg-card p-8 text-center">
+          <Lock aria-hidden="true" className="mx-auto mb-4 h-10 w-10 text-primary" />
+          <h2 className="text-xl font-bold text-foreground">Parent portal</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            A secure parent portal for progress reports and school documents is planned. Access will
+            be given only to registered parents once the Academy confirms the arrangement.
+          </p>
+          <p className="mt-4">
+            <Tbc>{TBC}</Tbc>
+          </p>
+        </div>
+      </Section>
+
+      <Section>
+        <Faq items={parentFaqs} title="Parent questions" />
       </Section>
 
       <AdmissionsCta title="Want to be part of our community?" description="Enquire today or book a visit to the Academy." />

@@ -11,7 +11,7 @@ const quickLinks = [
   { name: "Boarding", to: "/boarding" as const },
   { name: "School Life", to: "/school-life" as const },
   { name: "News & Events", to: "/news" as const },
-  { name: "Parent Information", to: "/parent-information" as const },
+  { name: "Gallery", to: "/gallery" as const },
   { name: "Contact Us", to: "/contact" as const },
 ];
 
