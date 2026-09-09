@@ -68,6 +68,40 @@ function SchoolLifePage() {
         </div>
       </Section>
 
+      <Section muted ariaLabel="Clubs and activities in pictures">
+        <SectionHeading
+          title="Clubs and activities in pictures"
+          description="Martial arts, sport, games and performance run alongside the academic timetable."
+        />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {activityImages.map((a) => (
+            <figure key={a.t} className="overflow-hidden rounded-2xl border border-border bg-card">
+              <img src={a.img} alt={a.alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+              <figcaption className="p-4 text-center text-sm font-semibold text-foreground">{a.t}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeading
+          eyebrow="Foreign languages"
+          title="French and German"
+          description="Learners are introduced to French and German, building confidence in listening, speaking, reading and writing another language."
+        />
+        <div className="grid gap-6 md:grid-cols-2">
+          {languages.map((l) => (
+            <div key={l.t} className="overflow-hidden rounded-2xl border border-border bg-card">
+              <img src={l.img} alt={l.alt} loading="lazy" className="aspect-[16/9] w-full object-cover" />
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-foreground">{l.t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
       <Section muted>
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div className="overflow-hidden rounded-2xl">

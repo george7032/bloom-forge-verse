@@ -8,9 +8,9 @@ import { AdmissionsCta } from "@/components/site/CtaGroup";
 import { SITE_URL, TBC } from "@/lib/school";
 import heroImage from "@/assets/hero-9.jpeg";
 
-const title = "News & Events — Embakasi Benedicta Academy, Utawala";
+const title = "News, Events & Parent Information — Embakasi Benedicta Academy";
 const description =
-  "School news, announcements, term updates, achievements and upcoming events at Embakasi Benedicta Academy in Utawala.";
+  "School news, announcements, upcoming events and parent information — term dates, uniform, transport, notices and policies at Embakasi Benedicta Academy, Utawala.";
 
 export const Route = createFileRoute("/news")({
   head: () => ({
